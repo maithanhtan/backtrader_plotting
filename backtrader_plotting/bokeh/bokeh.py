@@ -525,20 +525,9 @@ class Bokeh(metaclass=bt.MetaParams):
          # as the plot() function only created the figures and the columndatasources with no data -> now we fill it
         for idx in range(len(self.figurepages)):
             model = self.generate_model(idx)
-
-            if self.p.output_mode in ['show', 'save']:
-                if self._iplot:
-                    css = self._output_stylesheet()
-                    display(HTML(css))
-                    show(model)
-                else:
-                    filename = self._output_plot_file(model, idx, self.p.filename)
-                    if self.p.output_mode == 'show':
-                        view(filename)
-            elif self.p.output_mode == 'memory':
-                pass
-            else:
-                raise RuntimeError(f'Invalid parameter "output_mode" with value: {self.p.output_mode}')
+            css = self._output_stylesheet()
+            display(HTML(css))
+            show(model)
 
         self._reset()
 
