@@ -526,7 +526,7 @@ class Bokeh(metaclass=bt.MetaParams):
         for idx in range(len(self.figurepages)):
             model = self.generate_model(idx)
             css = self._output_stylesheet()
-            display(HTML(css))
+            #display(HTML(css))
             show(model)
 
         self._reset()
