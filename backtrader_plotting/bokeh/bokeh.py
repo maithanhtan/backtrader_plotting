@@ -40,10 +40,9 @@ from backtrader_plotting.html import metadata
 _logger = logging.getLogger(__name__)
 
 
-if 'ipykernel' in sys.modules:
-    from IPython.core.display import display, HTML
-    from bokeh.io import output_notebook, show
-    output_notebook()
+from IPython.core.display import display, HTML
+from bokeh.io import output_notebook, show
+output_notebook()
 
 
 class FigurePage(object):
@@ -503,7 +502,7 @@ class Bokeh(metaclass=bt.MetaParams):
         if use is not None:
             raise Exception("Different backends by 'use' not supported")
 
-        self._iplot = iplot and 'ipykernel' in sys.modules
+        self._iplot = iplot
 
         if isinstance(obj, bt.Strategy):
             self._blueprint_strategy(obj, start, end, tradingdomain, **kwargs)
@@ -525,9 +524,9 @@ class Bokeh(metaclass=bt.MetaParams):
          # as the plot() function only created the figures and the columndatasources with no data -> now we fill it
         for idx in range(len(self.figurepages)):
             model = self.generate_model(idx)
-            css = self._output_stylesheet()
+            #css = self._output_stylesheet()
             #display(HTML(css))
-            show(model)
+            show(model, notebook_handle=True)
 
         self._reset()
 
